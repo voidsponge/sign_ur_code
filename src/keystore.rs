@@ -14,5 +14,3 @@ pub struct EncryptedKeyFile {
     pub nonce: String,      // Base64 encoded
     pub ciphertext: String, // Base64 encoded
 }
-
-

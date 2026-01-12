@@ -115,3 +115,34 @@ pub fn verify_signature(key: &VerifyingKey, data: &[u8], sig: &Signature) -> Res
     key.verify(data, sig)
         .map_err(|e| anyhow::anyhow!("Verification failed: {}", e))
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_keygen_sign_verify() {
+        let key = generate_keypair();
+        let data = b"Hello, world!";
+        let sig = sign_data(&key, data);
+        assert!(verify_signature(&key.verifying_key(), data, &sig).is_ok());
+    }
+
+    #[test]
+    fn test_encrypt_decrypt() {
+        let key = generate_keypair();
+        let password = "strong_password";
+        let encrypted = encrypt_private_key(&key, password).expect("Encryption failed");
+        let decrypted = decrypt_private_key(&encrypted, password).expect("Decryption failed");
+        assert_eq!(key.to_bytes(), decrypted.to_bytes());
+    }
+
+    #[test]
+    fn test_bad_password() {
+        let key = generate_keypair();
+        let password = "correct";
+        let encrypted = encrypt_private_key(&key, password).unwrap();
+        let result = decrypt_private_key(&encrypted, "wrong");
+        assert!(result.is_err());
+    }
+}

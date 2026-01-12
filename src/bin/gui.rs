@@ -71,9 +71,10 @@ impl SignerApp {
         ui.label("Generate new high-security Ed25519 keys.");
 
         if ui.button("Select Output Directory").clicked()
-            && let Some(path) = FileDialog::new().pick_folder() {
-                self.keygen_out_dir = Some(path);
-            }
+            && let Some(path) = FileDialog::new().pick_folder()
+        {
+            self.keygen_out_dir = Some(path);
+        }
         if let Some(path) = &self.keygen_out_dir {
             ui.label(format!("Output: {:?}", path));
         }
@@ -127,17 +128,19 @@ impl SignerApp {
 
     fn ui_sign(&mut self, ui: &mut egui::Ui) {
         if ui.button("Select Encrypted Key").clicked()
-            && let Some(path) = FileDialog::new().add_filter("Key", &["key"]).pick_file() {
-                self.sign_key_path = Some(path);
-            }
+            && let Some(path) = FileDialog::new().add_filter("Key", &["key"]).pick_file()
+        {
+            self.sign_key_path = Some(path);
+        }
         if let Some(path) = &self.sign_key_path {
             ui.label(format!("Key: {:?}", path));
         }
 
         if ui.button("Select File to Sign").clicked()
-            && let Some(path) = FileDialog::new().pick_file() {
-                self.sign_file_path = Some(path);
-            }
+            && let Some(path) = FileDialog::new().pick_file()
+        {
+            self.sign_file_path = Some(path);
+        }
         if let Some(path) = &self.sign_file_path {
             ui.label(format!("File: {:?}", path));
         }
@@ -171,7 +174,9 @@ impl SignerApp {
                                                 if std::fs::write(
                                                     &sig_path,
                                                     hex::encode(sig.to_bytes()),
-                                                ).is_ok() {
+                                                )
+                                                .is_ok()
+                                                {
                                                     self.sign_status =
                                                         format!("✅ Signed: {}", sig_path);
                                                 } else {
@@ -205,17 +210,19 @@ impl SignerApp {
 
     fn ui_verify(&mut self, ui: &mut egui::Ui) {
         if ui.button("Select Public Key").clicked()
-            && let Some(path) = FileDialog::new().add_filter("Key", &["key"]).pick_file() {
-                self.verify_key_path = Some(path);
-            }
+            && let Some(path) = FileDialog::new().add_filter("Key", &["key"]).pick_file()
+        {
+            self.verify_key_path = Some(path);
+        }
         if let Some(path) = &self.verify_key_path {
             ui.label(format!("Pub Key: {:?}", path));
         }
 
         if ui.button("Select File to Verify").clicked()
-            && let Some(path) = FileDialog::new().pick_file() {
-                self.verify_file_path = Some(path);
-            }
+            && let Some(path) = FileDialog::new().pick_file()
+        {
+            self.verify_file_path = Some(path);
+        }
         if let Some(path) = &self.verify_file_path {
             ui.label(format!("File: {:?}", path));
         }
