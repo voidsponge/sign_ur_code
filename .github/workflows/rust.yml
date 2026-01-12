@@ -36,3 +36,8 @@ jobs:
 
     - name: Run tests
       run: cargo test --verbose
+
+    - name: Audit Dependencies
+      run: |
+        cargo install cargo-audit
+        cargo audit
