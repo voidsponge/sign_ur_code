@@ -37,7 +37,13 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
 
-    - name: Audit Dependencies
-      run: |
-        cargo install cargo-audit
-        cargo audit
+  security_audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Security Audit
+        run: |
+          cargo install cargo-audit cargo-deny cargo-geiger
+          cargo audit
+          cargo deny check
+          cargo geiger --display-stats
