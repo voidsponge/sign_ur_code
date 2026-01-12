@@ -1,0 +1,8 @@
+/target
+/keys
+*.sig
+*.log
+*.txt
+*.bat
+.DS_Store
+**/*.rs.bk
