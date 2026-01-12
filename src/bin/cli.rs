@@ -1,5 +1,4 @@
-mod crypto;
-mod keystore;
+use sign_ur_code::{crypto, keystore};
 
 use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};

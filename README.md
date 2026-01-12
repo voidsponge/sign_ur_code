@@ -1,8 +1,13 @@
 # 🔐 Sign Ur Code
 
+[![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Security: High](https://img.shields.io/badge/Security-High-green.svg)](src/crypto.rs)
+
 **The "Must-Have" Cyber Security Tool for Code Signing.**
 
-`sign_ur_code` is a high-security command-line interface (CLI) tool written in Rust, designed to protect your software supply chain. It allows you to generate secure keys, sign assets, and verify signatures with state-of-the-art cryptography.
+`sign_ur_code` is a high-security command-line interface (CLI) and Graphical User Interface (GUI) tool written in pure Rust, designed to protect your software supply chain. It allows you to generate secure keys, sign assets, and verify signatures with state-of-the-art cryptography.
+
 
 ## 🛡️ Security Architecture
 
@@ -56,11 +61,43 @@ cargo run -- verify --key keys/public.key --file release.zip
     *   `✅ Verification SUCCESS: Signature is valid.`
     *   `❌ Verification FAILED`: The file is corrupted or the signature is invalid.
 
+### 4. Graphical Interface (GUI) 🖥️
+Prefer a visual interface? Launch the secure GUI mode:
+
+```bash
+cargo run --bin gui
+# Or release mode:
+cargo run --release --bin gui
+```
+
 ## 📦 Project Structure
 
+*   `src/lib.rs`: The shared library exposing core logic.
 *   `src/crypto.rs`: The secure core. Handles Argon2id derivation, XChaCha20Poly1305 encryption, and Ed25519 operations with strict memory zeroization.
 *   `src/keystore.rs`: Defines the secure JSON storage format for encrypted keys.
-*   `src/main.rs`: The CLI entry point handling user interaction and command dispatch.
+*   `src/bin/cli.rs`: The CLI entry point.
+*   `src/bin/gui.rs`: The GUI entry point (eframe/egui).
 
 ---
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## ⚠️ Verified Security
+
+This tool uses:
+- **Argon2id**: v0.5.3 (m=64MB, t=3, p=4)
+- **XChaCha20Poly1305**: v0.10.1 (IETF standard)
+- **Ed25519-Dalek**: v2.2.0 (Verified assembly backend)
+- **Zeroize**: v1.8.2 (Memory clearing on drop)
+
 *Built with ❤️ and Rust.*
