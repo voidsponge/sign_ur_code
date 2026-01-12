@@ -1,12 +1,10 @@
 # cargo-deny configuration
 
 [advisories]
-vulnerability = "deny"
-notice = "warn"
 ignore = ["RUSTSEC-2024-0436"]
 
 [licenses]
-unlicensed = "deny"
+
 # We want to allow common open source licenses
 allow = [
     "MIT",
