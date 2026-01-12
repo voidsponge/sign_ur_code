@@ -41,9 +41,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Security Audit
+      - name: Install Security Tools
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-audit,cargo-deny,cargo-geiger
+
+      - name: Security Checks
         run: |
-          cargo install cargo-audit cargo-deny cargo-geiger
           cargo audit
           cargo deny check
           cargo geiger --display-stats
